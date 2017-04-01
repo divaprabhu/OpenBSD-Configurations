@@ -1,2 +1,1 @@
-# conky
-Conky configuration
+## OpenBSD Configurations
