@@ -1,0 +1,71 @@
+# default color used in TEXT segment below as ${color}
+default_color green 
+
+# use anti aliased font and set the default font and font size
+use_xft yes
+xftfont DejaVu Sans Mono:size=9:weight=Bold
+xftalpha 0.5
+
+# avoid flickering
+double_buffer yes
+
+# Create own window to draw
+own_window yes
+
+# if own_window is yes, you may specify type normal, desktop,
+# dock, panel or override (default: normal).  Desktop windows are
+# special windows that have no window decorations; are always
+# visible on your desktop; do not appear in your pager or taskbar;
+# and are sticky across all workspaces. Panel windows reserve
+# space along a desktop edge, just like panels and taskbars,
+# preventing maximized windows from overlapping them. The edge is
+# chosen based on the alignment option. Override windows are not
+# under the control of the window manager. Hints are ignored. This
+# type of window can be useful for certain situations.
+# When you are alt-tabbing through the windows, conky window will not be
+# selected by marking it override
+own_window_type override
+
+# own_window_hints undecorated,below,above,sticky,skip_taskbar,skip_pager
+# If own_window is yes, you may use these window manager hints to
+# affect the way Conky displays. Notes: Use own_window_type
+# desktop as another way to implement many of these hints
+# implicitly. If you use own_window_type override, window manager
+# hints have no meaning and are ignored.
+#own_window_hints undecorated,above
+
+# align conky at the top of screen
+alignment top_middle
+
+# Do not draw any borders
+draw_borders no
+
+# Don't leave gaps on either left of right and leave a 5px gap from top of screen
+gap_x 0
+gap_y 5
+
+# Refresh the data every second
+update_interval 1
+
+# Use space padding on left for some objects like network speed. This will make 
+# them fixed width avoiding fields to shifting around continously
+use_spacer left
+
+# minimum width and height of window. These should be changed based on your 
+# screen resolution. The screen resolution can be found from the X program as
+# $ xdpyinfo | grep dimension
+minimum_size 1366 0
+
+# Here is what exactly appears on panel
+TEXT
+CPU Load: ${loadavg} | \
+Freq: $freq_g GHz | \
+RAM: $memperc% | \
+Uptime: $uptime_short \
+${alignc -250} \
+${color white}${time %T} ${time %a} ${time %v}${color} \
+${alignr 15} \
+Vol: ${exec mixerctl outputs.master | cut -d "=" -f2 | cut -d "," -f1} | \
+Mute: ${exec mixerctl outputs.master.mute | cut -d "=" -f2 } | \
+Down: ${downspeed urtwn0} Up: ${upspeed urtwn0} | \
+Battery: $apm_battery_life $apm_battery_time $apm_adapter
